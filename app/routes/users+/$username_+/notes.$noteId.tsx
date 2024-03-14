@@ -140,15 +140,15 @@ export default function NoteRoute() {
 					<div className="grid flex-1 grid-cols-2 justify-end gap-2 min-[525px]:flex md:gap-4">
 						{canDelete ? <DeleteNote id={data.note.id} /> : null}
 						<Button
-							asChild
 							className="min-[525px]:max-md:aspect-square min-[525px]:max-md:px-0"
-						>
-							<Link to="edit">
-								<Icon name="pencil-1" className="scale-125 max-md:scale-150">
-									<span className="max-md:hidden">Edit</span>
-								</Icon>
-							</Link>
-						</Button>
+							render={
+								<Link to="edit">
+									<Icon name="pencil-1" className="scale-125 max-md:scale-150">
+										<span className="max-md:hidden">Edit</span>
+									</Icon>
+								</Link>
+							}
+						/>
 					</div>
 				</div>
 			) : null}

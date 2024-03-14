@@ -235,9 +235,11 @@ function App() {
 							{user ? (
 								<UserDropdown />
 							) : (
-								<Button asChild variant="default" size="lg">
-									<Link to="/login">Log In</Link>
-								</Button>
+								<Button
+									variant="default"
+									size="lg"
+									render={<Link to="/login">Log In</Link>}
+								/>
 							)}
 						</div>
 						<div className="block w-full sm:hidden">{searchBar}</div>
