@@ -1,9 +1,8 @@
 import { type MetaFunction } from '@remix-run/node'
 import {
-	Tooltip,
+	TooltipAnchor,
 	TooltipContent,
 	TooltipProvider,
-	TooltipTrigger,
 } from '#app/components/ui/tooltip.tsx'
 import { cn } from '#app/utils/misc.tsx'
 import { logos } from './logos/logos.ts'
@@ -69,31 +68,31 @@ export default function Index() {
 					</p>
 				</div>
 				<ul className="mt-16 flex max-w-3xl flex-wrap justify-center gap-2 sm:gap-4 xl:mt-0 xl:grid xl:grid-flow-col xl:grid-cols-5 xl:grid-rows-6">
-					<TooltipProvider>
-						{logos.map((logo, i) => (
-							<li
-								key={logo.href}
-								className={cn(
-									columnClasses[logo.column],
-									rowClasses[logo.row],
-									'animate-roll-reveal [animation-fill-mode:backwards]',
-								)}
-								style={{ animationDelay: `${i * 0.07}s` }}
-							>
-								<Tooltip>
-									<TooltipTrigger asChild>
+					{logos.map((logo, i) => (
+						<li
+							key={logo.href}
+							className={cn(
+								columnClasses[logo.column],
+								rowClasses[logo.row],
+								'animate-roll-reveal [animation-fill-mode:backwards]',
+							)}
+							style={{ animationDelay: `${i * 0.07}s` }}
+						>
+							<TooltipProvider placement="top">
+								<TooltipAnchor
+									render={
 										<a
 											href={logo.href}
 											className="grid size-20 place-items-center rounded-2xl bg-violet-600/10 p-4 transition hover:-rotate-6 hover:bg-violet-600/15 dark:bg-violet-200 dark:hover:bg-violet-100 sm:size-24"
 										>
 											<img src={logo.src} alt="" />
 										</a>
-									</TooltipTrigger>
-									<TooltipContent>{logo.alt}</TooltipContent>
-								</Tooltip>
-							</li>
-						))}
-					</TooltipProvider>
+									}
+								/>
+								<TooltipContent>{logo.alt}</TooltipContent>
+							</TooltipProvider>
+						</li>
+					))}
 				</ul>
 			</div>
 		</main>

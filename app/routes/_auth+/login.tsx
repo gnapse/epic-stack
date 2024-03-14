@@ -131,13 +131,8 @@ export default function LoginPage() {
 
 							<div className="flex justify-between">
 								<CheckboxField
-									labelProps={{
-										htmlFor: fields.remember.id,
-										children: 'Remember me',
-									}}
-									buttonProps={getInputProps(fields.remember, {
-										type: 'checkbox',
-									})}
+									label="Remember me"
+									{...getInputProps(fields.remember, { type: 'checkbox' })}
 									errors={fields.remember.errors}
 								/>
 								<div>

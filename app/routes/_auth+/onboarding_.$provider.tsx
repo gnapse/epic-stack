@@ -242,23 +242,15 @@ export default function SignupRoute() {
 					/>
 
 					<CheckboxField
-						labelProps={{
-							htmlFor: fields.agreeToTermsOfServiceAndPrivacyPolicy.id,
-							children:
-								'Do you agree to our Terms of Service and Privacy Policy?',
-						}}
-						buttonProps={getInputProps(
-							fields.agreeToTermsOfServiceAndPrivacyPolicy,
-							{ type: 'checkbox' },
-						)}
+						label="Do you agree to our Terms of Service and Privacy Policy?"
+						{...getInputProps(fields.agreeToTermsOfServiceAndPrivacyPolicy, {
+							type: 'checkbox',
+						})}
 						errors={fields.agreeToTermsOfServiceAndPrivacyPolicy.errors}
 					/>
 					<CheckboxField
-						labelProps={{
-							htmlFor: fields.remember.id,
-							children: 'Remember me',
-						}}
-						buttonProps={getInputProps(fields.remember, { type: 'checkbox' })}
+						label="Remember me"
+						{...getInputProps(fields.remember, { type: 'checkbox' })}
 						errors={fields.remember.errors}
 					/>
 
