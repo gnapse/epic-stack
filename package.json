@@ -51,7 +51,6 @@
     "@nasa-gcn/remix-seo": "^2.0.0",
     "@paralleldrive/cuid2": "^2.2.2",
     "@prisma/client": "^5.10.2",
-    "@radix-ui/react-dropdown-menu": "^2.0.6",
     "@radix-ui/react-slot": "^1.0.2",
     "@react-email/components": "0.0.15",
     "@remix-run/express": "2.8.0",
