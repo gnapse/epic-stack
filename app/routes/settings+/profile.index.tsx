@@ -113,19 +113,19 @@ export default function EditUserProfile() {
 						className="h-full w-full rounded-full object-cover"
 					/>
 					<Button
-						asChild
 						variant="outline"
 						className="absolute -right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full p-0"
-					>
-						<Link
-							preventScrollReset
-							to="photo"
-							title="Change profile photo"
-							aria-label="Change profile photo"
-						>
-							<Icon name="camera" className="h-4 w-4" />
-						</Link>
-					</Button>
+						render={
+							<Link
+								preventScrollReset
+								to="photo"
+								title="Change profile photo"
+								aria-label="Change profile photo"
+							>
+								<Icon name="camera" className="h-4 w-4" />
+							</Link>
+						}
+					/>
 				</div>
 			</div>
 			<UpdateProfile />

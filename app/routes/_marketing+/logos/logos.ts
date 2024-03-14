@@ -1,3 +1,4 @@
+import ariakit from './ariakit.svg'
 import docker from './docker.svg'
 import eslint from './eslint.svg'
 import fakerJS from './faker.svg'
@@ -7,7 +8,6 @@ import msw from './msw.svg'
 import playwright from './playwright.svg'
 import prettier from './prettier.svg'
 import prisma from './prisma.svg'
-import radixUI from './radix.svg'
 import reactEmail from './react-email.svg'
 import remix from './remix.svg'
 import resend from './resend.svg'
@@ -87,9 +87,9 @@ export const logos = [
 		row: 3,
 	},
 	{
-		src: radixUI,
-		alt: 'Radix UI',
-		href: 'https://www.radix-ui.com/',
+		src: ariakit,
+		alt: 'Ariakit',
+		href: 'https://ariakit.org/',
 		column: 3,
 		row: 4,
 	},
