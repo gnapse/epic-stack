@@ -12,10 +12,9 @@ import { useState } from 'react'
 import { Icon } from '#app/components/ui/icon.tsx'
 import { StatusButton } from '#app/components/ui/status-button.tsx'
 import {
-	Tooltip,
+	TooltipAnchor,
 	TooltipContent,
 	TooltipProvider,
-	TooltipTrigger,
 } from '#app/components/ui/tooltip.tsx'
 import { requireUserId } from '#app/utils/auth.server.ts'
 import { resolveConnectionData } from '#app/utils/connections.server.ts'
@@ -186,9 +185,10 @@ function Connection({
 			{canDelete ? (
 				<deleteFetcher.Form method="POST">
 					<input name="connectionId" value={connection.id} type="hidden" />
+
 					<TooltipProvider>
-						<Tooltip>
-							<TooltipTrigger asChild>
+						<TooltipAnchor
+							render={
 								<StatusButton
 									name="intent"
 									value="delete-connection"
@@ -202,21 +202,19 @@ function Connection({
 								>
 									<Icon name="cross-1" />
 								</StatusButton>
-							</TooltipTrigger>
-							<TooltipContent>Disconnect this account</TooltipContent>
-						</Tooltip>
+							}
+						/>
+						<TooltipContent>Disconnect this account</TooltipContent>
 					</TooltipProvider>
 				</deleteFetcher.Form>
 			) : (
-				<TooltipProvider>
-					<Tooltip open={infoOpen} onOpenChange={setInfoOpen}>
-						<TooltipTrigger onClick={() => setInfoOpen(true)}>
-							<Icon name="question-mark-circled"></Icon>
-						</TooltipTrigger>
-						<TooltipContent>
-							You cannot delete your last connection unless you have a password.
-						</TooltipContent>
-					</Tooltip>
+				<TooltipProvider open={infoOpen} setOpen={setInfoOpen}>
+					<TooltipAnchor onClick={() => setInfoOpen(true)}>
+						<Icon name="question-mark-circled"></Icon>
+					</TooltipAnchor>
+					<TooltipContent>
+						You cannot delete your last connection unless you have a password.
+					</TooltipContent>
 				</TooltipProvider>
 			)}
 		</div>

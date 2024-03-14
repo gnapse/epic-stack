@@ -3,12 +3,7 @@ import { useSpinDelay } from 'spin-delay'
 import { cn } from '#app/utils/misc.tsx'
 import { Button, type ButtonProps } from './button.tsx'
 import { Icon } from './icon.tsx'
-import {
-	Tooltip,
-	TooltipContent,
-	TooltipProvider,
-	TooltipTrigger,
-} from './tooltip.tsx'
+import { TooltipAnchor, TooltipContent, TooltipProvider } from './tooltip.tsx'
 
 export const StatusButton = React.forwardRef<
 	HTMLButtonElement,
@@ -51,10 +46,8 @@ export const StatusButton = React.forwardRef<
 			<div>{children}</div>
 			{message ? (
 				<TooltipProvider>
-					<Tooltip>
-						<TooltipTrigger>{companion}</TooltipTrigger>
-						<TooltipContent>{message}</TooltipContent>
-					</Tooltip>
+					<TooltipAnchor>{companion}</TooltipAnchor>
+					<TooltipContent>{message}</TooltipContent>
 				</TooltipProvider>
 			) : (
 				companion
