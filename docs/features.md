@@ -27,7 +27,7 @@ Here are a few things you get today:
   [better-sqlite3](https://github.com/WiseLibs/better-sqlite3))
 - Styling with [Tailwind](https://tailwindcss.com/)
 - An excellent, customizable component library with
-  [Radix UI](https://www.radix-ui.com/)
+  [Ariakit](https://ariakit.org/)
 - End-to-end testing with [Playwright](https://playwright.dev/)
 - Local third party request mocking with [MSW](https://mswjs.io/)
 - Unit testing with [Vitest](https://vitest.dev/) and

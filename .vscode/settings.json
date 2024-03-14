@@ -3,7 +3,6 @@
     "@remix-run/server-runtime",
     "@remix-run/router",
     "express",
-    "@radix-ui/**",
     "@react-email/**",
     "react-router-dom",
     "react-router",
