@@ -9,7 +9,7 @@ import {
 } from '@remix-run/node'
 import { Form, useActionData, useLoaderData } from '@remix-run/react'
 import { GeneralErrorBoundary } from '#app/components/error-boundary.tsx'
-import { ErrorList, Field } from '#app/components/forms.tsx'
+import { ErrorList, TextField } from '#app/components/forms.tsx'
 import { StatusButton } from '#app/components/ui/status-button.tsx'
 import { requireAnonymous, resetUserPassword } from '#app/utils/auth.server.ts'
 import { useIsPending } from '#app/utils/misc.tsx'
@@ -91,27 +91,17 @@ export default function ResetPasswordPage() {
 			</div>
 			<div className="mx-auto mt-16 min-w-full max-w-sm sm:min-w-[368px]">
 				<Form method="POST" {...getFormProps(form)}>
-					<Field
-						labelProps={{
-							htmlFor: fields.password.id,
-							children: 'New Password',
-						}}
-						inputProps={{
-							...getInputProps(fields.password, { type: 'password' }),
-							autoComplete: 'new-password',
-							autoFocus: true,
-						}}
+					<TextField
+						label="New Password"
+						{...getInputProps(fields.password, { type: 'password' })}
+						autoComplete="new-password"
+						autoFocus={true}
 						errors={fields.password.errors}
 					/>
-					<Field
-						labelProps={{
-							htmlFor: fields.confirmPassword.id,
-							children: 'Confirm Password',
-						}}
-						inputProps={{
-							...getInputProps(fields.confirmPassword, { type: 'password' }),
-							autoComplete: 'new-password',
-						}}
+					<TextField
+						label="Confirm Password"
+						{...getInputProps(fields.confirmPassword, { type: 'password' })}
+						autoComplete="new-password"
 						errors={fields.confirmPassword.errors}
 					/>
 

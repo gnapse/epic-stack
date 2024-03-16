@@ -21,7 +21,7 @@ import {
 } from '@remix-run/react'
 import { safeRedirect } from 'remix-utils/safe-redirect'
 import { z } from 'zod'
-import { CheckboxField, ErrorList, Field } from '#app/components/forms.tsx'
+import { CheckboxField, ErrorList, TextField } from '#app/components/forms.tsx'
 import { Spacer } from '#app/components/spacer.tsx'
 import { StatusButton } from '#app/components/ui/status-button.tsx'
 import {
@@ -223,21 +223,17 @@ export default function SignupRoute() {
 							<input {...getInputProps(fields.imageUrl, { type: 'hidden' })} />
 						</div>
 					) : null}
-					<Field
-						labelProps={{ htmlFor: fields.username.id, children: 'Username' }}
-						inputProps={{
-							...getInputProps(fields.username, { type: 'text' }),
-							autoComplete: 'username',
-							className: 'lowercase',
-						}}
+					<TextField
+						label="Username"
+						{...getInputProps(fields.username, { type: 'text' })}
+						autoComplete="username"
+						className="lowercase"
 						errors={fields.username.errors}
 					/>
-					<Field
-						labelProps={{ htmlFor: fields.name.id, children: 'Name' }}
-						inputProps={{
-							...getInputProps(fields.name, { type: 'text' }),
-							autoComplete: 'name',
-						}}
+					<TextField
+						label="Name"
+						{...getInputProps(fields.name, { type: 'text' })}
+						autoComplete="name"
 						errors={fields.name.errors}
 					/>
 
