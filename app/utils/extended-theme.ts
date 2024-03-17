@@ -55,20 +55,18 @@ export const extendedTheme = {
 	},
 	fontSize: {
 		// 1rem = 16px
-		/** 80px size / 84px high / bold */
-		mega: ['5rem', { lineHeight: '5.25rem', fontWeight: '700' }],
 		/** 56px size / 62px high / bold */
-		h1: ['3.5rem', { lineHeight: '3.875rem', fontWeight: '700' }],
+		mega: ['3.5rem', { lineHeight: '3.875rem', fontWeight: '700' }],
 		/** 40px size / 48px high / bold */
-		h2: ['2.5rem', { lineHeight: '3rem', fontWeight: '700' }],
+		h1: ['2.5rem', { lineHeight: '3rem', fontWeight: '700' }],
 		/** 32px size / 36px high / bold */
-		h3: ['2rem', { lineHeight: '2.25rem', fontWeight: '700' }],
+		h2: ['2rem', { lineHeight: '2.25rem', fontWeight: '700' }],
 		/** 28px size / 36px high / bold */
-		h4: ['1.75rem', { lineHeight: '2.25rem', fontWeight: '700' }],
+		h3: ['1.75rem', { lineHeight: '2.25rem', fontWeight: '700' }],
 		/** 24px size / 32px high / bold */
-		h5: ['1.5rem', { lineHeight: '2rem', fontWeight: '700' }],
+		h4: ['1.5rem', { lineHeight: '2rem', fontWeight: '700' }],
 		/** 16px size / 20px high / bold */
-		h6: ['1rem', { lineHeight: '1.25rem', fontWeight: '700' }],
+		h5: ['1rem', { lineHeight: '1.25rem', fontWeight: '700' }],
 
 		/** 32px size / 36px high / normal */
 		'body-2xl': ['2rem', { lineHeight: '2.25rem' }],

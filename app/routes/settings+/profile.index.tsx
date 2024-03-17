@@ -9,7 +9,7 @@ import {
 } from '@remix-run/node'
 import { Link, useFetcher, useLoaderData } from '@remix-run/react'
 import { z } from 'zod'
-import { ErrorList, Field } from '#app/components/forms.tsx'
+import { ErrorList, TextField } from '#app/components/forms.tsx'
 import { Button } from '#app/components/ui/button.tsx'
 import { Icon } from '#app/components/ui/icon.tsx'
 import { StatusButton } from '#app/components/ui/status-button.tsx'
@@ -237,19 +237,16 @@ function UpdateProfile() {
 	return (
 		<fetcher.Form method="POST" {...getFormProps(form)}>
 			<div className="grid grid-cols-6 gap-x-10">
-				<Field
+				<TextField
 					className="col-span-3"
-					labelProps={{
-						htmlFor: fields.username.id,
-						children: 'Username',
-					}}
-					inputProps={getInputProps(fields.username, { type: 'text' })}
+					label="Username"
+					{...getInputProps(fields.username, { type: 'text' })}
 					errors={fields.username.errors}
 				/>
-				<Field
+				<TextField
 					className="col-span-3"
-					labelProps={{ htmlFor: fields.name.id, children: 'Name' }}
-					inputProps={getInputProps(fields.name, { type: 'text' })}
+					label="Name"
+					{...getInputProps(fields.name, { type: 'text' })}
 					errors={fields.name.errors}
 				/>
 			</div>

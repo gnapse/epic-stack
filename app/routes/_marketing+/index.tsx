@@ -5,6 +5,7 @@ import {
 	TooltipProvider,
 } from '#app/components/ui/tooltip.tsx'
 import { cn } from '#app/utils/misc.tsx'
+import { Main } from '../../components/layout.tsx'
 import { logos } from './logos/logos.ts'
 
 export const meta: MetaFunction = () => [{ title: 'Epic Notes' }]
@@ -28,8 +29,8 @@ const rowClasses: Record<(typeof logos)[number]['row'], string> = {
 
 export default function Index() {
 	return (
-		<main className="font-poppins grid h-full place-items-center">
-			<div className="grid place-items-center px-4 py-16 xl:grid-cols-2 xl:gap-24">
+		<Main>
+			<div className="font-poppins grid place-items-center px-4 py-16 xl:grid-cols-2 xl:gap-24">
 				<div className="flex max-w-md flex-col items-center text-center xl:order-2 xl:items-start xl:text-left">
 					<a
 						href="https://www.epicweb.dev/stack"
@@ -95,6 +96,6 @@ export default function Index() {
 					))}
 				</ul>
 			</div>
-		</main>
+		</Main>
 	)
 }

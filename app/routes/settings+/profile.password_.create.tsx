@@ -8,7 +8,7 @@ import {
 	type ActionFunctionArgs,
 } from '@remix-run/node'
 import { Form, Link, useActionData } from '@remix-run/react'
-import { ErrorList, Field } from '#app/components/forms.tsx'
+import { ErrorList, TextField } from '#app/components/forms.tsx'
 import { Button } from '#app/components/ui/button.tsx'
 import { Icon } from '#app/components/ui/icon.tsx'
 import { StatusButton } from '#app/components/ui/status-button.tsx'
@@ -93,22 +93,16 @@ export default function CreatePasswordRoute() {
 
 	return (
 		<Form method="POST" {...getFormProps(form)} className="mx-auto max-w-md">
-			<Field
-				labelProps={{ children: 'New Password' }}
-				inputProps={{
-					...getInputProps(fields.password, { type: 'password' }),
-					autoComplete: 'new-password',
-				}}
+			<TextField
+				label="New Password"
+				{...getInputProps(fields.password, { type: 'password' })}
+				autoComplete="new-password"
 				errors={fields.password.errors}
 			/>
-			<Field
-				labelProps={{ children: 'Confirm New Password' }}
-				inputProps={{
-					...getInputProps(fields.confirmPassword, {
-						type: 'password',
-					}),
-					autoComplete: 'new-password',
-				}}
+			<TextField
+				label="Confirm New Password"
+				{...getInputProps(fields.confirmPassword, { type: 'password' })}
+				autoComplete="new-password"
 				errors={fields.confirmPassword.errors}
 			/>
 			<ErrorList id={form.errorId} errors={form.errors} />

@@ -9,7 +9,7 @@ import {
 } from '@remix-run/node'
 import { Form, useActionData, useLoaderData } from '@remix-run/react'
 import { z } from 'zod'
-import { ErrorList, Field } from '#app/components/forms.tsx'
+import { ErrorList, TextField } from '#app/components/forms.tsx'
 import { Icon } from '#app/components/ui/icon.tsx'
 import { StatusButton } from '#app/components/ui/status-button.tsx'
 import {
@@ -127,12 +127,10 @@ export default function ChangeEmailIndex() {
 			</p>
 			<div className="mx-auto mt-5 max-w-sm">
 				<Form method="POST" {...getFormProps(form)}>
-					<Field
-						labelProps={{ children: 'New Email' }}
-						inputProps={{
-							...getInputProps(fields.email, { type: 'email' }),
-							autoComplete: 'email',
-						}}
+					<TextField
+						label="New Email"
+						{...getInputProps(fields.email, { type: 'email' })}
+						autoComplete="email"
 						errors={fields.email.errors}
 					/>
 					<ErrorList id={form.errorId} errors={form.errors} />

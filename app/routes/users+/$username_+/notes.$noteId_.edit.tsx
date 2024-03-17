@@ -32,9 +32,8 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 }
 
 export default function NoteEdit() {
-	const data = useLoaderData<typeof loader>()
-
-	return <NoteEditor note={data.note} />
+	const { note } = useLoaderData<typeof loader>()
+	return <NoteEditor note={note} />
 }
 
 export function ErrorBoundary() {

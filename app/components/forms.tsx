@@ -1,9 +1,8 @@
 import { useInputControl } from '@conform-to/react'
-import React, { useId } from 'react'
+import React, { forwardRef, useId } from 'react'
 import { Checkbox, type CheckboxProps } from './ui/checkbox.tsx'
 import { Input } from './ui/input.tsx'
 import { Label } from './ui/label.tsx'
-import { Textarea } from './ui/textarea.tsx'
 
 export type ListOfErrors = Array<string | null | undefined> | null | undefined
 
@@ -27,65 +26,63 @@ export function ErrorList({
 	)
 }
 
-export function Field({
-	labelProps,
-	inputProps,
-	errors,
-	className,
-}: {
-	labelProps: React.LabelHTMLAttributes<HTMLLabelElement>
-	inputProps: React.InputHTMLAttributes<HTMLInputElement>
+type TextFieldProps = React.InputHTMLAttributes<HTMLInputElement> & {
+	label: React.ReactNode
 	errors?: ListOfErrors
-	className?: string
-}) {
-	const fallbackId = useId()
-	const id = inputProps.id ?? fallbackId
-	const errorId = errors?.length ? `${id}-error` : undefined
-	return (
-		<div className={className}>
-			<Label htmlFor={id} {...labelProps} />
-			<Input
-				id={id}
-				aria-invalid={errorId ? true : undefined}
-				aria-describedby={errorId}
-				{...inputProps}
-			/>
-			<div className="min-h-[32px] px-4 pb-3 pt-1">
-				{errorId ? <ErrorList id={errorId} errors={errors} /> : null}
-			</div>
-		</div>
-	)
 }
 
-export function TextareaField({
-	labelProps,
-	textareaProps,
-	errors,
-	className,
-}: {
-	labelProps: React.LabelHTMLAttributes<HTMLLabelElement>
-	textareaProps: React.TextareaHTMLAttributes<HTMLTextAreaElement>
+export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
+	function TextField({ label, errors, className, ...props }: TextFieldProps) {
+		const fallbackId = useId()
+		const id = props.id ?? fallbackId
+		const errorId = errors?.length ? `${id}-error` : undefined
+		return (
+			<div className={className}>
+				<Label htmlFor={id}>{label}</Label>
+				<Input
+					id={id}
+					aria-invalid={errorId ? true : undefined}
+					aria-describedby={errorId}
+					{...props}
+				/>
+				{errorId ? (
+					<div className="min-h-[32px] px-4 pb-3 pt-1">
+						<ErrorList id={errorId} errors={errors} />
+					</div>
+				) : null}
+			</div>
+		)
+	},
+)
+
+type TextAreaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement> & {
+	label: React.ReactNode
 	errors?: ListOfErrors
 	className?: string
-}) {
-	const fallbackId = useId()
-	const id = textareaProps.id ?? textareaProps.name ?? fallbackId
-	const errorId = errors?.length ? `${id}-error` : undefined
-	return (
-		<div className={className}>
-			<Label htmlFor={id} {...labelProps} />
-			<Textarea
-				id={id}
-				aria-invalid={errorId ? true : undefined}
-				aria-describedby={errorId}
-				{...textareaProps}
-			/>
-			<div className="min-h-[32px] px-4 pb-3 pt-1">
-				{errorId ? <ErrorList id={errorId} errors={errors} /> : null}
-			</div>
-		</div>
-	)
 }
+
+export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
+	function TextArea({ label, errors, className, ...props }: TextAreaProps) {
+		const fallbackId = useId()
+		const id = props.id ?? props.name ?? fallbackId
+		const errorId = errors?.length ? `${id}-error` : undefined
+		return (
+			<div className={className}>
+				<Label htmlFor={id}>{label}</Label>
+				<textarea
+					id={id}
+					aria-invalid={errorId ? true : undefined}
+					aria-describedby={errorId}
+					className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 aria-[invalid]:border-input-invalid"
+					{...props}
+				/>
+				<div className="min-h-[32px] px-4 pb-3 pt-1">
+					{errorId ? <ErrorList id={errorId} errors={errors} /> : null}
+				</div>
+			</div>
+		)
+	},
+)
 
 export function CheckboxField({
 	id,

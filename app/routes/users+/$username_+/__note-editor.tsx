@@ -14,13 +14,12 @@ import { Form, useActionData } from '@remix-run/react'
 import { useState } from 'react'
 import { z } from 'zod'
 import { GeneralErrorBoundary } from '#app/components/error-boundary.tsx'
-import { floatingToolbarClassName } from '#app/components/floating-toolbar.tsx'
-import { ErrorList, Field, TextareaField } from '#app/components/forms.tsx'
+import { ErrorList, TextField, TextArea } from '#app/components/forms.tsx'
+import { FloatingToolbar } from '#app/components/layout'
 import { Button } from '#app/components/ui/button.tsx'
 import { Icon } from '#app/components/ui/icon.tsx'
 import { Label } from '#app/components/ui/label.tsx'
 import { StatusButton } from '#app/components/ui/status-button.tsx'
-import { Textarea } from '#app/components/ui/textarea.tsx'
 import { cn, getNoteImgSrc, useIsPending } from '#app/utils/misc.tsx'
 import { type action } from './__note-editor.server'
 
@@ -79,94 +78,86 @@ export function NoteEditor({
 	const imageList = fields.images.getFieldList()
 
 	return (
-		<div className="absolute inset-0">
-			<FormProvider context={form.context}>
-				<Form
-					method="POST"
-					className="flex h-full flex-col gap-y-4 overflow-y-auto overflow-x-hidden px-10 pb-28 pt-12"
-					{...getFormProps(form)}
-					encType="multipart/form-data"
-				>
-					{/*
+		<FormProvider context={form.context}>
+			<Form
+				method="POST"
+				className="flex h-full flex-col gap-y-4 pb-28 pt-4"
+				{...getFormProps(form)}
+				encType="multipart/form-data"
+			>
+				{/*
 					This hidden submit button is here to ensure that when the user hits
 					"enter" on an input field, the primary form function is submitted
 					rather than the first button in the form (which is delete/add image).
 				*/}
-					<button type="submit" className="hidden" />
-					{note ? <input type="hidden" name="id" value={note.id} /> : null}
-					<div className="flex flex-col gap-1">
-						<Field
-							labelProps={{ children: 'Title' }}
-							inputProps={{
-								autoFocus: true,
-								...getInputProps(fields.title, { type: 'text' }),
-							}}
-							errors={fields.title.errors}
-						/>
-						<TextareaField
-							labelProps={{ children: 'Content' }}
-							textareaProps={{
-								...getTextareaProps(fields.content),
-							}}
-							errors={fields.content.errors}
-						/>
-						<div>
-							<Label>Images</Label>
-							<ul className="flex flex-col gap-4">
-								{imageList.map((image, index) => {
-									console.log('image.key', image.key)
-									return (
-										<li
-											key={image.key}
-											className="relative border-b-2 border-muted-foreground"
+				<button type="submit" className="hidden" />
+				{note ? <input type="hidden" name="id" value={note.id} /> : null}
+				<div className="flex flex-col gap-1">
+					<TextField
+						label="Title"
+						{...getInputProps(fields.title, { type: 'text' })}
+						autoFocus={true}
+						errors={fields.title.errors}
+					/>
+					<TextArea
+						label="Content"
+						{...getTextareaProps(fields.content)}
+						errors={fields.content.errors}
+					/>
+					<div>
+						<Label>Images</Label>
+						<ul className="flex flex-col gap-4">
+							{imageList.map((image, index) => {
+								console.log('image.key', image.key)
+								return (
+									<li
+										key={image.key}
+										className="relative border-b-2 border-muted-foreground"
+									>
+										<button
+											className="absolute right-0 top-0 text-foreground-destructive"
+											{...form.remove.getButtonProps({
+												name: fields.images.name,
+												index,
+											})}
 										>
-											<button
-												className="absolute right-0 top-0 text-foreground-destructive"
-												{...form.remove.getButtonProps({
-													name: fields.images.name,
-													index,
-												})}
-											>
-												<span aria-hidden>
-													<Icon name="cross-1" />
-												</span>{' '}
-												<span className="sr-only">
-													Remove image {index + 1}
-												</span>
-											</button>
-											<ImageChooser meta={image} />
-										</li>
-									)
-								})}
-							</ul>
-						</div>
-						<Button
-							className="mt-3"
-							{...form.insert.getButtonProps({ name: fields.images.name })}
-						>
-							<span aria-hidden>
-								<Icon name="plus">Image</Icon>
-							</span>{' '}
-							<span className="sr-only">Add image</span>
-						</Button>
+											<span aria-hidden>
+												<Icon name="cross-1" />
+											</span>{' '}
+											<span className="sr-only">Remove image {index + 1}</span>
+										</button>
+										<ImageChooser meta={image} />
+									</li>
+								)
+							})}
+						</ul>
 					</div>
-					<ErrorList id={form.errorId} errors={form.errors} />
-				</Form>
-				<div className={floatingToolbarClassName}>
-					<Button variant="destructive" {...form.reset.getButtonProps()}>
-						Reset
-					</Button>
-					<StatusButton
-						form={form.id}
-						type="submit"
-						disabled={isPending}
-						status={isPending ? 'pending' : 'idle'}
+					<Button
+						className="mt-3"
+						{...form.insert.getButtonProps({ name: fields.images.name })}
 					>
-						Submit
-					</StatusButton>
+						<span aria-hidden>
+							<Icon name="plus">Image</Icon>
+						</span>{' '}
+						<span className="sr-only">Add image</span>
+					</Button>
 				</div>
-			</FormProvider>
-		</div>
+				<ErrorList id={form.errorId} errors={form.errors} />
+			</Form>
+			<FloatingToolbar>
+				<Button variant="destructive" {...form.reset.getButtonProps()}>
+					Reset
+				</Button>
+				<StatusButton
+					form={form.id}
+					type="submit"
+					disabled={isPending}
+					status={isPending ? 'pending' : 'idle'}
+				>
+					Submit
+				</StatusButton>
+			</FloatingToolbar>
+		</FormProvider>
 	)
 }
 
@@ -238,8 +229,8 @@ function ImageChooser({ meta }: { meta: FieldMetadata<ImageFieldset> }) {
 					</div>
 				</div>
 				<div className="flex-1">
-					<Label htmlFor={fields.altText.id}>Alt Text</Label>
-					<Textarea
+					<TextArea
+						label="Alt Text"
 						onChange={e => setAltText(e.currentTarget.value)}
 						{...getTextareaProps(fields.altText)}
 					/>

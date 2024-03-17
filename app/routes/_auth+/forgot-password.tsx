@@ -11,7 +11,7 @@ import { Link, useFetcher } from '@remix-run/react'
 import { HoneypotInputs } from 'remix-utils/honeypot/react'
 import { z } from 'zod'
 import { GeneralErrorBoundary } from '#app/components/error-boundary.tsx'
-import { ErrorList, Field } from '#app/components/forms.tsx'
+import { ErrorList, TextField } from '#app/components/forms.tsx'
 import { StatusButton } from '#app/components/ui/status-button.tsx'
 import { prisma } from '#app/utils/db.server.ts'
 import { sendEmail } from '#app/utils/email.server.ts'
@@ -143,15 +143,10 @@ export default function ForgotPasswordRoute() {
 					<forgotPassword.Form method="POST" {...getFormProps(form)}>
 						<HoneypotInputs />
 						<div>
-							<Field
-								labelProps={{
-									htmlFor: fields.usernameOrEmail.id,
-									children: 'Username or Email',
-								}}
-								inputProps={{
-									autoFocus: true,
-									...getInputProps(fields.usernameOrEmail, { type: 'text' }),
-								}}
+							<TextField
+								label="Username or Email"
+								autoFocus={true}
+								{...getInputProps(fields.usernameOrEmail, { type: 'text' })}
 								errors={fields.usernameOrEmail.errors}
 							/>
 						</div>

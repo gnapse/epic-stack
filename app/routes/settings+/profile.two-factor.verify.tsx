@@ -15,7 +15,7 @@ import {
 } from '@remix-run/react'
 import * as QRCode from 'qrcode'
 import { z } from 'zod'
-import { ErrorList, Field } from '#app/components/forms.tsx'
+import { ErrorList, TextField } from '#app/components/forms.tsx'
 import { Icon } from '#app/components/ui/icon.tsx'
 import { StatusButton } from '#app/components/ui/status-button.tsx'
 import { isCodeValid } from '#app/routes/_auth+/verify.server.ts'
@@ -175,16 +175,11 @@ export default function TwoFactorRoute() {
 				</p>
 				<div className="flex w-full max-w-xs flex-col justify-center gap-4">
 					<Form method="POST" {...getFormProps(form)} className="flex-1">
-						<Field
-							labelProps={{
-								htmlFor: fields.code.id,
-								children: 'Code',
-							}}
-							inputProps={{
-								...getInputProps(fields.code, { type: 'text' }),
-								autoFocus: true,
-								autoComplete: 'one-time-code',
-							}}
+						<TextField
+							label="Code"
+							{...getInputProps(fields.code, { type: 'text' })}
+							autoFocus={true}
+							autoComplete="one-time-code"
 							errors={fields.code.errors}
 						/>
 

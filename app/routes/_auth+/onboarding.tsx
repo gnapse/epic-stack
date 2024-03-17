@@ -16,7 +16,7 @@ import {
 import { HoneypotInputs } from 'remix-utils/honeypot/react'
 import { safeRedirect } from 'remix-utils/safe-redirect'
 import { z } from 'zod'
-import { CheckboxField, ErrorList, Field } from '#app/components/forms.tsx'
+import { CheckboxField, ErrorList, TextField } from '#app/components/forms.tsx'
 import { Spacer } from '#app/components/spacer.tsx'
 import { StatusButton } from '#app/components/ui/status-button.tsx'
 import { requireAnonymous, sessionKey, signup } from '#app/utils/auth.server.ts'
@@ -163,41 +163,30 @@ export default function SignupRoute() {
 					{...getFormProps(form)}
 				>
 					<HoneypotInputs />
-					<Field
-						labelProps={{ htmlFor: fields.username.id, children: 'Username' }}
-						inputProps={{
-							...getInputProps(fields.username, { type: 'text' }),
-							autoComplete: 'username',
-							className: 'lowercase',
-						}}
+					<TextField
+						label="Username"
+						{...getInputProps(fields.username, { type: 'text' })}
+						autoComplete="username"
+						className="lowercase"
 						errors={fields.username.errors}
 					/>
-					<Field
-						labelProps={{ htmlFor: fields.name.id, children: 'Name' }}
-						inputProps={{
-							...getInputProps(fields.name, { type: 'text' }),
-							autoComplete: 'name',
-						}}
+					<TextField
+						label="Name"
+						{...getInputProps(fields.name, { type: 'text' })}
+						autoComplete="name"
 						errors={fields.name.errors}
 					/>
-					<Field
-						labelProps={{ htmlFor: fields.password.id, children: 'Password' }}
-						inputProps={{
-							...getInputProps(fields.password, { type: 'password' }),
-							autoComplete: 'new-password',
-						}}
+					<TextField
+						label="Password"
+						{...getInputProps(fields.password, { type: 'password' })}
+						autoComplete="new-password"
 						errors={fields.password.errors}
 					/>
 
-					<Field
-						labelProps={{
-							htmlFor: fields.confirmPassword.id,
-							children: 'Confirm Password',
-						}}
-						inputProps={{
-							...getInputProps(fields.confirmPassword, { type: 'password' }),
-							autoComplete: 'new-password',
-						}}
+					<TextField
+						label="Confirm Password"
+						{...getInputProps(fields.confirmPassword, { type: 'password' })}
+						autoComplete="new-password"
 						errors={fields.confirmPassword.errors}
 					/>
 

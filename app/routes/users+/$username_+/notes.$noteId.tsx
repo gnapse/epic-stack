@@ -16,8 +16,8 @@ import {
 import { formatDistanceToNow } from 'date-fns'
 import { z } from 'zod'
 import { GeneralErrorBoundary } from '#app/components/error-boundary.tsx'
-import { floatingToolbarClassName } from '#app/components/floating-toolbar.tsx'
 import { ErrorList } from '#app/components/forms.tsx'
+import { FloatingToolbar, Main } from '#app/components/layout.tsx'
 import { Button } from '#app/components/ui/button.tsx'
 import { Icon } from '#app/components/ui/icon.tsx'
 import { StatusButton } from '#app/components/ui/status-button.tsx'
@@ -51,11 +51,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
 
 	const date = new Date(note.updatedAt)
 	const timeAgo = formatDistanceToNow(date)
-
-	return json({
-		note,
-		timeAgo,
-	})
+	return json({ note, timeAgo })
 }
 
 const DeleteFormSchema = z.object({
@@ -110,28 +106,32 @@ export default function NoteRoute() {
 	const displayBar = canDelete || isOwner
 
 	return (
-		<div className="absolute inset-0 flex flex-col px-10">
-			<h2 className="mb-2 pt-12 text-h2 lg:mb-6">{data.note.title}</h2>
-			<div className={`${displayBar ? 'pb-24' : 'pb-12'} overflow-y-auto`}>
-				<ul className="flex flex-wrap gap-5 py-5">
-					{data.note.images.map(image => (
-						<li key={image.id}>
-							<a href={getNoteImgSrc(image.id)}>
-								<img
-									src={getNoteImgSrc(image.id)}
-									alt={image.altText ?? ''}
-									className="h-32 w-32 rounded-lg object-cover"
-								/>
-							</a>
-						</li>
-					))}
-				</ul>
-				<p className="whitespace-break-spaces text-sm md:text-lg">
-					{data.note.content}
-				</p>
-			</div>
+		<>
+			<Main.Title>{data.note.title}</Main.Title>
+
+			<Main.Content>
+				<div className={`${displayBar ? 'pb-24' : 'pb-12'} overflow-y-auto`}>
+					<ul className="flex flex-wrap gap-5 py-5">
+						{data.note.images.map(image => (
+							<li key={image.id}>
+								<a href={getNoteImgSrc(image.id)}>
+									<img
+										src={getNoteImgSrc(image.id)}
+										alt={image.altText ?? ''}
+										className="h-32 w-32 rounded-lg object-cover"
+									/>
+								</a>
+							</li>
+						))}
+					</ul>
+					<p className="whitespace-break-spaces text-sm md:text-lg">
+						{data.note.content}
+					</p>
+				</div>
+			</Main.Content>
+
 			{displayBar ? (
-				<div className={floatingToolbarClassName}>
+				<FloatingToolbar>
 					<span className="text-sm text-foreground/90 max-[524px]:hidden">
 						<Icon name="clock" className="scale-125">
 							{data.timeAgo} ago
@@ -150,9 +150,9 @@ export default function NoteRoute() {
 							}
 						/>
 					</div>
-				</div>
+				</FloatingToolbar>
 			) : null}
-		</div>
+		</>
 	)
 }
 

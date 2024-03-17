@@ -9,7 +9,7 @@ import {
 } from '@remix-run/node'
 import { Form, Link, useActionData } from '@remix-run/react'
 import { z } from 'zod'
-import { ErrorList, Field } from '#app/components/forms.tsx'
+import { ErrorList, TextField } from '#app/components/forms.tsx'
 import { Button } from '#app/components/ui/button.tsx'
 import { Icon } from '#app/components/ui/icon.tsx'
 import { StatusButton } from '#app/components/ui/status-button.tsx'
@@ -134,30 +134,22 @@ export default function ChangePasswordRoute() {
 
 	return (
 		<Form method="POST" {...getFormProps(form)} className="mx-auto max-w-md">
-			<Field
-				labelProps={{ children: 'Current Password' }}
-				inputProps={{
-					...getInputProps(fields.currentPassword, { type: 'password' }),
-					autoComplete: 'current-password',
-				}}
+			<TextField
+				label="Current Password"
+				{...getInputProps(fields.currentPassword, { type: 'password' })}
+				autoComplete="current-password"
 				errors={fields.currentPassword.errors}
 			/>
-			<Field
-				labelProps={{ children: 'New Password' }}
-				inputProps={{
-					...getInputProps(fields.newPassword, { type: 'password' }),
-					autoComplete: 'new-password',
-				}}
+			<TextField
+				label="New Password"
+				{...getInputProps(fields.newPassword, { type: 'password' })}
+				autoComplete="new-password"
 				errors={fields.newPassword.errors}
 			/>
-			<Field
-				labelProps={{ children: 'Confirm New Password' }}
-				inputProps={{
-					...getInputProps(fields.confirmNewPassword, {
-						type: 'password',
-					}),
-					autoComplete: 'new-password',
-				}}
+			<TextField
+				label="Confirm New Password"
+				{...getInputProps(fields.confirmNewPassword, { type: 'password' })}
+				autoComplete="new-password"
 				errors={fields.confirmNewPassword.errors}
 			/>
 			<ErrorList id={form.errorId} errors={form.errors} />
